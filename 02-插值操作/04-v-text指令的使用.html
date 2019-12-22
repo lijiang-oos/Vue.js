@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>{{message}}</h2>
+  <!--   v- text 相当于message 但是因传递值存在覆盖值问题，故经常不使用-->
+  <h2 v-text="message"></h2>
+
+</div>
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'message'
+    }
+  })
+</script>
+
+</body>
+</html>
