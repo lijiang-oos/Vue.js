@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .active {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!--  写的时候应当注意，多一个空格，少一个空格，都会影响错误，例如，以下错误的例子-->
+  <!--  <h2 v-bind :class="['active','line']">{{messsage }}</h2>-->
+  <!--  Failed to generate render function 就会报这个错，无法生成渲染-->
+  <h2 v-bind:class="['active','line']">{{message}}</h2>
+  <!--  含有单引号是一个字符串，不含有是'' 当做一个变量-->
+  <!--  :class 是v-bind 的语法简写-->
+  <h2 :class="[active,'line']">{{message}}</h2>
+  <h2 v-bind:class="getClasses()">{{message}}</h2>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊！',
+      active: 'aaaaa',
+      line: 'bbbb'
+    },
+    methods: {
+      getClasses: function () {
+        //直接返回一个数组
+        return [this.active, this.line]
+      }
+    }
+  })
+</script>
+</body>
+</html>
