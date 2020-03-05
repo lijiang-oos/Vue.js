@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--suppress BadExpressionStatementJS -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+
+<body>
+
+<button>按钮1</button>
+<button>按钮2</button>
+<button>按钮3</button>
+<button>按钮4</button>
+<button>按钮5</button>
+<script>
+    // 1、变量作用域：变量在什么范围内是可用
+    {
+        var name = 'why';
+        console.log(name);
+    }
+    console.log(name);
+    //    2、没有块级作用域引起的问题if语句
+    var func;
+    if (true) {
+        var namel = 'why';
+        func = function () {
+            console.log(namel);
+        }
+    }
+    namel = '11';
+    func()
+    // 3、没有块级作用域引起的问题，for循环
+    //为啥闭包可以解决问题，是因为函数有作用域
+    var btns = document.getElementsByTagName('button');
+    for (var i = 0; i < btns.length; i++) {
+        (function (i) {
+            btns[i].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+            })
+        })(i)
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------
+
+    //let 语法：
+    //简单介绍：只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+
+    var tmp = 123;
+    if (true) {
+        // tmp = 'abc';
+        let tmp = 1;
+        console.log("let中的自定义变量为:" + tmp);
+    }
+    tmp = '213';
+    console.log("调用全局的var变量" + tmp);
+
+    //  let 块级作用域，使用前必须前声明变量
+    //  ES6明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。
+
+    function bar(x, y) {
+        return [x, y];
+
+    }
+
+    let a = bar(2, 3);
+    console.log(a);
+
+    //  使用块级作用域的必要性
+    //  场景一、内层变量可能会覆盖外层变量
+
+    var tmpl = new Date();
+    console.log(tmpl);
+
+    function f() {
+        console.log(tmpl);
+        if (false) {
+            var tmpl = 'hello world';
+
+        }
+    }
+
+    f()
+    //  函数f执行后，输出结果为undefined，原因在于变量提升，导致内层的tmp变量覆盖了外层的tmp变量。
+
+    //  场景二、用来计数的循环变量泄露为全局变量
+    var s = 'hello';
+    for (let i = 0; i < s.length; i++) {
+        console.log('输出s' + i + '个字母是：' + s[i]);
+
+    }
+    console.log(i);
+    //    变量i只用来控制循环，但是循环结束后，它并没有消失，泄露成了全局变量。
+
+    //  ES6的块级作用域
+    function f1() {
+        let n = 5;
+        if (true) {
+            let n = 10;
+        }
+        console.log('n的值为：' + n);
+    }
+
+    f1()
+
+    //  ES6允许块级作用域的任意嵌套,外层作用域无法读取内层作用域的变量
+    {
+        {
+            {
+                {
+                    {
+                        let insane = 'Hello World'
+                    }
+                    // console.log(insance);//报错 insance is not defined
+                }
+            }
+        }
+    }
+    ;
+
+    // 内层作用域可以定义外层作用域的同名变量
+    {
+        {
+            {
+                {
+                    let insancel = 'hello world';
+                    {
+                        let insancel = 'hello world';
+                    }
+                }
+            }
+        }
+    }
+    //    块级作用域的出现，实际上使得获得广泛应用的立即执行函数表达式（IIFE）不再必要了
+    //  iffe 写法
+    (function () {
+        var tmp = 1;
+
+    });
+    //  块级写法
+    {
+        let tmpll = 1;
+    }
+
+    //  块级作用域与函数声明
+
+    if (true) {
+        function f2() {
+
+        }
+    }
+
+    //ES6 规定，块级作用域之中，函数声明语句的行为类似于let，在块级作用域之外不可引用。
+
+    // function f3() {
+    //     console.log('i am outside');
+    //
+    // }
+    //
+    // (function () {
+    //         if (false) {
+    // 重复声明一次函数f
+
+    //             function f3() {
+    //                 console.log('i am inside');
+    //
+    //             }
+    //         }
+    //         f3();
+    //     }
+    // ());
+    // Uncaught TypeError: f is not a function
+
+
+    function f4() {
+        console.log('I am outside!');
+    }
+
+    (function () {
+        f4();
+    }());
+    //    do 表达式
+    //
+    // let x = do {
+    //   let t = f();
+    //   t * t + 1;
+    // };
+    // console.log(x);
+
+
+</script>
+</body>
+</html>

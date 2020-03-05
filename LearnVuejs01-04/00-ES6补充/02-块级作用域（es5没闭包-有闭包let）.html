@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+</head>
+<body>
+<div>
+  <button>按钮1</button>
+  <button>按钮2</button>
+  <button>按钮3</button>
+</div>
+<script>
+    var btns = document.getElementsByTagName('button');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('click', function () {
+            console.log('第' + i + '个按钮被点击');
+
+        });
+        //    1. 情况一 ：es5 中没有使用闭包（错误的方式）
+        i = 0
+        {
+            // i = 0
+            btns[i].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+                ;
+            });
+        }
+        {
+            // i = 1
+            btns[i].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+                ;
+            });
+        }
+        {
+            // i = 2
+            btns[i].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+                ;
+            });
+        }
+        //    2. 情况二 ：es5 中使用闭包（错误的方式）
+
+        var btns = document.getElementsByTagName('button');
+        for (var i = 0; i < btns.length; i++) {
+            (function (i) {
+            }(i)
+        }
+        i = 5
+
+        function (i) {
+            btns[i].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+            })
+        }
+
+        (0)
+
+        function (i) {
+            btns[i].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+            })
+        }
+
+        (1)
+
+        function (i) {
+            btns[i].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+            })
+        }
+
+        (2)
+        // 3.情况三： 使用es6 中的let
+        const btnsl = document.getElementsByTagName('button')
+        for (let j = 0; j < btnsl.length; j++) {
+            btnsl[j].addEventListener('click', function () {
+                console.log('第' + i + '个按钮被点击');
+            });
+
+        }
+    }
+</script>
+</body>
+</html>

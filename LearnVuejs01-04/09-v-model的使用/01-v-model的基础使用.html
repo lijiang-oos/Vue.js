@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!--v-modele 是双向绑定，用于里面的值发生改变对应的input值也发生改变-->
+<div id="app">
+  <input type="text" v-model="message">
+  <h2>{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello Vue!'
+
+        }
+    })
+</script>
+
+</body>
+</html>

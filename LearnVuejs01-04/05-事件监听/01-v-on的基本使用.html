@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <h2>{{counter}}</h2>
+  <!--    v-on 事件监听 -->
+  <!--    事件监听的时候，并且不传参数-->
+  <button v-on:click="increment">增加</button>
+  <button v-on:click="decrement">减少</button>
+  <!--    @click 为语法糖，可以监听以后的事件-->
+  <button @click="defaultl">初始化为默认值</button>
+
+
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            counter: 0
+        },
+        methods: {
+            increment() {
+                this.counter++;
+            },
+            decrement() {
+                this.counter--;
+            },
+            defaultl() {
+                this.counter = 0;
+            }
+        }
+    })
+</script>
+</body>
+</html>
